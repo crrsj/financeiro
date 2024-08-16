@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -35,7 +36,7 @@ public class ContaController {
     @ApiResponse(responseCode = "201",description = "sucesso",content = {
    		@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
     })           
-	public ResponseEntity<Conta>Criar(@RequestBody Conta conta){
+	public ResponseEntity<Conta>Criar(@RequestBody @Valid Conta conta){
 		var criarConta = contaService.criar(conta);
 		return new ResponseEntity<>(criarConta,HttpStatus.CREATED);
 	}

@@ -15,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,9 +35,9 @@ public class Conta {
 	private Mes mes;
 	
 	private int ano;
-	
+	@NotBlank(message = "Não pode estar em branco")
 	private String nome;
-	
+	@NotBlank(message = "Não pode estar em branco")
 	private String produtoOuFatura;
 	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy")
 	private LocalDate dataCompra;
@@ -50,7 +51,7 @@ public class Conta {
 	private Double valor;
 	
 	private Double  total;
-	
+	@Enumerated(EnumType.STRING)
 	private Situacao situacao;
 	
 	
