@@ -6,10 +6,12 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("conta")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class ContaController {
 
@@ -91,5 +94,25 @@ public class ContaController {
 	public ResponseEntity<List<Conta>>buscarInadimplente(){
 		var busca = contaService.buscarInadimplentes();
 		return new ResponseEntity<>(busca,HttpStatus.OK);
+	}
+	
+	@GetMapping("{id}")
+	@Operation(summary = "Rota responsável pela busca da conta pelo id")
+	@ApiResponse(responseCode = "200",description = " sucesso",content = {
+	    		@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+	   })           
+	public ResponseEntity<Conta>buscarPorId(@PathVariable Long id){
+		var buscaId  = contaService.buscarPorId(id);
+		return new ResponseEntity<>(buscaId,HttpStatus.OK);
+	}
+	
+	@PutMapping
+	@Operation(summary = "Rota responsável pela atualização de contas pagas")
+	@ApiResponse(responseCode = "200",description = " sucesso",content = {
+	    		@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+	   })           
+	public ResponseEntity<Conta>atualizarConta(@RequestBody @Valid Conta conta){
+		var atualizar = contaService.atualizarConta(conta);
+		return new ResponseEntity<>(atualizar,HttpStatus.OK);
 	}
 }

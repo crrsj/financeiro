@@ -1,6 +1,7 @@
 package com.financeiro.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -37,11 +38,20 @@ public class ContaService {
 		
 	}
 	
+	public Conta buscarPorId(Long id) {
+		Optional<Conta> buscar = contaRepository.findById(id);
+		return buscar.get();
+	}
+	
 	public List<Conta>buscarPagas(){
 		return contaRepository.findBySituacao(Situacao.PAGA);
 	}
 	
 	public List<Conta>buscarInadimplentes(){
 		return contaRepository.findBySituacao(Situacao.INADIMPLENTE);
+	}
+	
+	public Conta atualizarConta(Conta conta) {
+		return contaRepository.save(conta);
 	}
 }

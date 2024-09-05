@@ -3,7 +3,6 @@ package com.financeiro.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import com.financeiro.enums.Situacao;
 import com.financeiro.model.Conta;
